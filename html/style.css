@@ -1,0 +1,136 @@
+body{
+    margin: 0px;
+    background: #000 url("background.jpg") no-repeat center;
+}
+
+#main{
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    max-width: 1200px;
+    top: 10%;
+    width: 90%;
+    height: 80%;
+    background-color: rgb(76,88,68);
+    border: 1px solid rgba(62,70,55,255);
+    border-top: 1px solid rgba(52,60,45,255);
+    box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.45);
+}
+
+#naming{
+    position: absolute;
+    margin: auto;
+    top: 2.5%;
+    left: 2%;
+    width: 96%;
+    height: 2.5%;
+    background-color: rgba(76,88,68);
+    box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.45);
+}
+
+#links{
+    position: absolute;
+    margin: auto;
+    top: 96%;
+    left: 2%;
+    width: 96%;
+    height: 2.5%;
+    background-color: rgba(76,88,68);
+}
+
+.linksi{
+    flex-grow: 1;
+    text-align: center;
+    color: white;
+}
+
+#sl{
+    position: absolute;
+    margin: auto;
+    top: 5%;
+    left: 2%;
+    width: 96%;
+    height: 90%;
+    background-color: rgba(62,70,55,255);
+    box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.45);
+}
+
+#logo{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+li{
+    overflow: hidden;
+}
+
+ul{
+    width: 98%;
+    display: inline-flex;
+        margin: 0px;
+    padding: 0px;
+        color: #fff;
+        font-family: sans-serif;
+}
+
+.server-line {
+        background: #4c5844;
+        padding: 5px;
+        margin: 5px 5px 2px 5px;
+        border-bottom: 2px solid #45523c;
+        border-right: 2px solid #45523c;
+}
+
+button {
+        background: #6d7e61;
+        color: #fff;
+        border-top: 2px solid #758768;
+        border-left: 2px solid #758768;
+
+        border-bottom: 2px solid #45523c;
+        border-right: 2px solid #45523c;
+}
+
+button:hover {
+        background: #758768;
+        color: #fff;
+        border-top: 2px solid #657857;
+        border-left: 2px solid #657857;
+
+        border-bottom: 2px solid #45523c;
+        border-right: 2px solid #45523c;
+}
+
+button:active {
+        background: #485440;
+        color: #fff;
+        border-top: 2px solid #3c4535;
+        border-left: 2px solid #3c4535;
+
+        border-bottom: 2px solid #758768;
+        border-right: 2px solid #758768;
+}
+
+.sn{
+    width: 40%;
+}
+
+.sm{
+    width: 40%;
+}
+
+.pc{
+    width: 6%;
+    text-align: center;
+}
+
+.ping{
+    width: 6%;
+    text-align: center;
+}
+
+.join{
+    width: 8%;
+    text-align: center;
+}

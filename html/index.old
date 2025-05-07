@@ -1,0 +1,135 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>CSCO:Server Browser [UNOFFICIAL]</title>
+</head>
+<body>
+    <img src="logo.png" id="logo">
+    <div id="main">
+        <div id="naming">
+            <ul>
+            <li class="sn">Server name</li>
+            <li class="sm">Map</li>
+            <li class="pc">Players</li>
+            <li class="ping">Ping</li>
+            <li class="join">Link</li>
+        </ul></div>
+        <div id="sl">
+        </div>
+        <div id="links">
+            <ul>
+            <a href="https://discord.gg/7QmCjPD"class="linksi">Discord</a>
+            <a href="https://www.reddit.com/r/ClassicOffensive/"class="linksi">Reddit</a>
+            <a href="https://gunkyplace.neocities.org/classicoffensive"class="linksi">Gunkyplace</a>
+            <a href="CSCOGuide.pdf"class="linksi">Download Guide</a>
+            <a href="https://www.moddb.com/mods/counter-strike-classic-offensive"class="linksi">Moddb</a>
+            <li class="linksi" onclick="addserver()"><button>Add Server</button></li>
+            </ul>
+        </div>
+    </div>
+
+</body></html>
+<script>
+
+    let htmlInfo = "";
+
+fetch("serverData.txt")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('File not found or failed to load');
+        }
+        return response.text();
+    })
+    .then(data => {
+        let lines = data.trim().split("\n"); // Split file into lines
+
+        lines.forEach(line => {
+            // Regex to capture the different parts of the line
+            let match = line.match(/^"([^"]+)"([^"]+)"(\d+)"(\d+)"([\d\.]+)"([^:]+):(\d+)$/);
+
+            if (!match) {
+                console.error("Malformed line:", line);
+                return; // Skip malformed lines
+            }
+
+            // Extract values from the match groups
+            let serverName = match[1];  // Server name
+            let map = match[2];          // Map name
+            let players = match[3];      // Current players
+            let maxPlayers = match[4];   // Max players
+            let ping = (parseFloat(match[5]) * 1000).toFixed(0) || "N/A";  // Convert ping to ms
+            let ip = match[6];           // IP address
+            let port = match[7];         // Port
+
+            // Generate HTML content for this server
+            htmlInfo += `
+                <ul class="server-line">
+                    <li class="sn">${serverName}</li>
+                    <li class="sm">${map}</li>
+                    <li class="pc">${players}/${maxPlayers}</li>
+                    <li class="ping">${ping}</li>
+                    <button class="join" onclick="copy('connect ${ip}:${port}');">Copy</button>
+                </ul>
+            `;
+        });
+        // Add the generated HTML to the page
+        let slElement = document.getElementById('sl');
+        if (slElement) {
+            slElement.innerHTML = htmlInfo;
+        } else {
+            console.error("Element with ID 'sl' not found.");
+        }
+    })
+    .catch(error => {
+        console.error('Error reading the file:', error);
+        let slElement = document.getElementById('sl');
+        if (slElement) {
+            slElement.innerHTML = 'Error: ' + error.message;
+        }
+    });
+
+</script>
+
+<script>
+
+        function copy(ip)
+        {
+                try {
+                        navigator.clipboard.writeText(ip);
+                }catch {
+                        alert(ip);
+                }
+        }
+
+</script>
+
+<script>
+    function sendDataToServer(serverAddress) {
+    fetch('addServer.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ serverAddress: serverAddress })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Server Response:', data.message);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    };
+
+    function addserver()
+    {
+        sa = prompt("Prefix: IP:PORT")
+        if(sa !=""){
+            sendDataToServer(sa);
+        }
+    }
+
+</script>
+
